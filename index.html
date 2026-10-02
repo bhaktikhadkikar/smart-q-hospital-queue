@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SMART Q | Smart Hospital Queue</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f8f8;
+            color: #172b3a;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 72px;
+            background: #10283d;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            color: white;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #3db5a8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .logo h2 {
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #dce7ed;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #4fc1b4;
+        }
+
+        .login-btn {
+            border: 1px solid #4fc1b4;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white !important;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 65px 7% 40px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: #dff3ef;
+            color: #168f84;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.1;
+            color: #10283d;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #25a99c;
+        }
+
+        .hero p {
+            color: #60727d;
+            line-height: 1.7;
+            max-width: 580px;
+            font-size: 17px;
+        }
+
+        .hero-buttons {
+            margin-top: 28px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .primary-btn {
+            background: #35ad9f;
+            color: white;
+            text-decoration: none;
+            padding: 14px 25px;
+            border-radius: 9px;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 6px 15px rgba(53, 173, 159, 0.25);
+        }
+
+        .primary-btn:hover {
+            background: #26998d;
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #17364b;
+            text-decoration: none;
+            padding: 14px 25px;
+            border-radius: 9px;
+            font-weight: bold;
+            border: 1px solid #d7e1e5;
+            display: inline-block;
+        }
+
+        /* HOSPITAL CARD */
+
+        .hospital-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 12px 35px rgba(16, 40, 61, 0.10);
+        }
+
+        .hospital-top {
+            background: #10283d;
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .hospital-top small {
+            color: #aebec8;
+        }
+
+        .hospital-top h3 {
+            margin-top: 5px;
+        }
+
+        .queue-preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .queue-box {
+            padding: 15px 8px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .now {
+            background: #3db5a8;
+            color: white;
+        }
+
+        .next {
+            background: #edf3f6;
+            color: #17364b;
+        }
+
+        .wait {
+            background: #f5ead6;
+            color: #9b6831;
+        }
+
+        .queue-box small {
+            display: block;
+            font-size: 10px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .queue-box strong {
+            font-size: 22px;
+        }
+
+        /* FEATURES */
+
+        .section {
+            padding: 35px 7% 70px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            color: #10283d;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            color: #71818a;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #e5ecef;
+            box-shadow: 0 5px 18px rgba(16, 40, 61, 0.05);
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: #e1f5f2;
+            color: #229c91;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #18374b;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: #71818a;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* LIVE QUEUE */
+
+        .live-section {
+            padding: 0 7% 70px;
+        }
+
+        .live-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(16, 40, 61, 0.07);
+        }
+
+        .live-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .live-header h2 {
+            color: #10283d;
+        }
+
+        .live-badge {
+            background: #e1f5f2;
+            color: #188c82;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .queue-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .queue-table th {
+            background: #10283d;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        .queue-table td {
+            padding: 14px;
+            border-bottom: 1px solid #edf1f3;
+            color: #52636d;
+        }
+
+        .priority {
+            color: #bd6c67;
+            font-weight: bold;
+        }
+
+        .waiting {
+            color: #b47a34;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #10283d;
+            color: #b9c7ce;
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 40px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+            .hero,
+            .section,
+            .live-section {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .primary-btn,
+            .secondary-btn {
+                text-align: center;
+            }
+
+            .queue-preview {
+                grid-template-columns: 1fr;
+            }
+
+            .queue-table {
+                font-size: 12px;
+            }
+
+            .queue-table th,
+            .queue-table td {
+                padding: 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">Q</div>
+            <h2>SMART Q</h2>
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#features">Features</a>
+            <a href="#live-queue">Live Queue</a>
+            <a href="/login" class="login-btn">Patient Login</a>
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div>
+
+            <span class="hero-tag">
+                SMART HOSPITAL QUEUE MANAGEMENT
+            </span>
+
+            <h1>
+                Less Waiting.<br>
+                <span>More Care.</span>
+            </h1>
+
+            <p>
+                SMART Q helps patients manage hospital visits,
+                generate digital tokens, track their queue position
+                and reduce unnecessary waiting time.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/register" class="primary-btn">
+                    + Get Your Token
+                </a>
+
+                <a href="#live-queue" class="secondary-btn">
+                    View Live Queue
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUEUE PREVIEW -->
+
+        <div class="hospital-card">
+
+            <div class="hospital-top">
+
+                <small>SMART Q • CITY CARE HOSPITAL</small>
+
+                <h3>General Medicine</h3>
+
+            </div>
+
+
+            <div class="queue-preview">
+
+                <div class="queue-box now">
+
+                    <small>NOW SERVING</small>
+
+                    <strong>A-014</strong>
+
+                </div>
+
+
+                <div class="queue-box next">
+
+                    <small>NEXT</small>
+
+                    <strong>A-015</strong>
+
+                </div>
+
+
+                <div class="queue-box wait">
+
+                    <small>EST. WAIT</small>
+
+                    <strong>12 min</strong>
+
+                </div>
+
+            </div>
+
+
+            <div style="color:#6c7d86; font-size:14px;">
+
+                🟢 Queue is currently active
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="section" id="features">
+
+        <div class="section-title">
+
+            <h2>Everything You Need</h2>
+
+            <p>
+                A smarter way to manage patient flow.
+            </p>
+
+        </div>
+
+
+        <div class="features">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🎫</div>
+
+                <h3>Digital Token</h3>
+
+                <p>
+                    Generate your hospital token digitally
+                    without standing in a physical queue.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">👨‍⚕️</div>
+
+                <h3>Doctor Selection</h3>
+
+                <p>
+                    Select your department and available
+                    doctor according to your requirement.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">📊</div>
+
+                <h3>Live Queue</h3>
+
+                <p>
+                    Track the current token, patients ahead
+                    and estimated waiting time in real time.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- LIVE QUEUE -->
+
+    <section class="live-section" id="live-queue">
+
+        <div class="live-card">
+
+            <div class="live-header">
+
+                <h2>Live Queue</h2>
+
+                <span class="live-badge">
+                    ● LIVE
+                </span>
+
+            </div>
+
+
+            <table class="queue-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Token</th>
+                        <th>Patient</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>E-003</td>
+                        <td>Emergency</td>
+                        <td class="priority">PRIORITY</td>
+                    </tr>
+
+                    <tr>
+                        <td>A-015</td>
+                        <td>Walk-in</td>
+                        <td>Next</td>
+                    </tr>
+
+                    <tr>
+                        <td>A-016</td>
+                        <td>Booked 10:30</td>
+                        <td class="waiting">Waiting</td>
+                    </tr>
+
+                    <tr>
+                        <td>A-017</td>
+                        <td>Walk-in</td>
+                        <td class="waiting">Waiting</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        SMART Q © 2026 | Smart Hospital Queue Management System
+
+    </footer>
+
+
+</body>
+</html>

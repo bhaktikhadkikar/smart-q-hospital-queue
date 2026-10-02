@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMART Q - Generate Token</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8fb;
+            color: #172b4d;
+        }
+
+        .navbar {
+            background: #082f49;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #20c7b5;
+        }
+
+        .back {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #64748b;
+        }
+
+        .form-box {
+            background: white;
+            padding: 32px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5dde5;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        .queue-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .info-card {
+            background: #eef8f7;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .info-card small {
+            color: #64748b;
+        }
+
+        .info-card strong {
+            display: block;
+            font-size: 25px;
+            margin-top: 8px;
+            color: #0f766e;
+        }
+
+        .priority-box {
+            display: flex;
+            gap: 15px;
+        }
+
+        .priority-option {
+            flex: 1;
+            border: 1px solid #d5dde5;
+            padding: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .priority-option input {
+            margin-right: 8px;
+        }
+
+        .generate {
+            width: 100%;
+            border: none;
+            background: #20c7b5;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .generate:hover {
+            background: #159f91;
+        }
+
+        @media (max-width: 650px) {
+            .queue-info {
+                grid-template-columns: 1fr;
+            }
+
+            .priority-box {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">SMART <span>Q</span></div>
+        <a href="/patient/dashboard" class="back">← Dashboard</a>
+    </div>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Generate Your Token</h1>
+            <p>Select your department and doctor to join the hospital queue.</p>
+        </div>
+
+        <div class="form-box">
+
+            <div class="form-group">
+                <label>Department</label>
+
+                <select>
+                    <option value="">Select Department</option>
+                    <option>General Medicine</option>
+                    <option>Cardiology</option>
+                    <option>Dermatology</option>
+                    <option>Orthopedics</option>
+                    <option>Pediatrics</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Doctor</label>
+
+                <select>
+                    <option value="">Select Doctor</option>
+                    <option>Dr. Sharma</option>
+                    <option>Dr. Patel</option>
+                    <option>Dr. Joshi</option>
+                </select>
+            </div>
+
+            <div class="queue-info">
+
+                <div class="info-card">
+                    <small>Current Token</small>
+                    <strong>--</strong>
+                </div>
+
+                <div class="info-card">
+                    <small>Patients Waiting</small>
+                    <strong>--</strong>
+                </div>
+
+                <div class="info-card">
+                    <small>Estimated Wait</small>
+                    <strong>--</strong>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Queue Type</label>
+
+                <div class="priority-box">
+
+                    <label class="priority-option">
+                        <input type="radio" name="queue_type" value="normal" checked>
+                        Normal Queue
+                    </label>
+
+                    <label class="priority-option">
+                        <input type="radio" name="queue_type" value="priority">
+                        Priority Queue
+                    </label>
+
+                </div>
+
+            </div>
+
+            <form action="/generate-token" method="POST">
+    <button type="submit" class="generate">
+        Generate Token
+    </button>
+</form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
